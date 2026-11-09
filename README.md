@@ -1,7 +1,6 @@
 # Regret statt Fehler: die beste Prognose bestellt nicht die beste Menge – Streamlit-Demo
 
-<!-- TODO nach dem Deploy: direkt hierher den Live-Link setzen (Leerzeile davor und danach):
-**[→ Demo live ausprobieren](https://sebastianhanisch-regret-statt-fehler-demo.streamlit.app/)** -->
+**[→ Demo live ausprobieren](https://sebastianhanisch-regret-statt-fehler-demo.streamlit.app/)**
 
 Erstes Stück der Reihe **Entscheidungsorientiertes Lernen** in der „Konzepte“-Reihe für die Website „Sebastian Hanisch – Operations Research und Machine Learning“. Es legt die Grundlage: den **Regret** (Kosten der gewählten Entscheidung minus Kosten der besten Entscheidung bei bekannter Verteilung) und die **zweistufige Pipeline** (erst eine Prognose, dann eine Regel, die daraus eine Menge macht), am **Newsvendor mit Merkmalen**. Vehikel ist eine einzige Bestellmenge je Merkmalszeile; Verfahren, die auf den Kosten statt auf dem Fehler trainieren, und Entscheidungen mit Löser sind nicht Teil dieser Demo.
 
