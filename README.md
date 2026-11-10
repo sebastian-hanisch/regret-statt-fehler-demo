@@ -35,7 +35,7 @@ Der Zufall kommt aus einem ganzzahligen SplitMix64-Strom (Zustand und Ausgabe nu
 
 ## Befunde (gemessen, keine Behauptungen)
 
-Alle Zahlen dieser Tabelle stehen in `tests/test_claims.py` (Spalte „Test“ der Tabelle weiter unten). „Median [Minimum; Maximum]“ meint 30 feste Seeds, Welt linear, 20 000 Testpunkte je Seed.
+Alle Zahlen dieser Tabelle werden in `tests/test_claims.py` als Bänder und Toleranzen geprüft (Spalte „Test“ der Tabelle weiter unten), nicht als exakte Gleichheit; zum Beispiel gilt für die Rundung der Messtabelle die Toleranz 0,06, und die 20 abgeschnittenen von 14,4 Millionen Mengen werden nur als Band von 15 bis 25 geprüft. „Median [Minimum; Maximum]“ meint 30 feste Seeds, Welt linear, 20 000 Testpunkte je Seed.
 
 | Frage | Befund |
 |---|---|
@@ -156,4 +156,4 @@ Gebaut mit Streamlit, Plotly, NumPy und SciPy.
 
 ---
 
-Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zu den Demos: [Interaktive Demos](https://sebastianhanisch.net/demos.html).
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zur Reihe: [Entscheidungsorientiert: Regret bis Wahl](https://sebastianhanisch.net/konzepte-entscheidungsorientiert.html).

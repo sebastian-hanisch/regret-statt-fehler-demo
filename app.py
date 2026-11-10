@@ -69,9 +69,22 @@ der **Regret** ist der Kostenunterschied zwischen der gewählten und der besten 
 die Nachfrage hängt von Merkmalen ab) zeigt die Demo: Wer bei ungleichen Kosten das **Mittel** bestellt, zahlt auch mit richtigem Modell und 1000 Trainingsfällen bei τ = 0,8 im Median 42,5 % und bei τ = 0,95 im Median 286,7 %
 mehr als nötig (drei Merkmale, 30 feste Seeds, Experiment 2); eine Regel mit **Quantil** kostet dort unter 1 % mehr. Erstes Stück der Reihe „Entscheidungsorientiertes Lernen“.
 
-Weiter unten: **🔬 Experiment 2 bis 4**, **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**.
+Wer die Idee zuerst ohne Formeln lesen möchte, öffnet **💬 In einfachen Worten**. Weiter unten: **🔬 Experiment 2 bis 4**, **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**.
 """
 )
+
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/beste-prognose-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Ein Lager bestellt eine Menge, bevor es die Nachfrage kennt. Fehlt eine Einheit, kostet das mehr, als wenn eine übrig bleibt. Die Demo zeigt: Wer einfach die durchschnittliche Nachfrage bestellt, zahlt bei so ungleichen Kosten drauf, auch wenn die Prognose genau stimmt. Der Aufpreis gegenüber der besten Menge heißt **Regret**; die Demo rechnet ihn in Prozent Mehrkosten.
+
+Die beste Menge ist ein **Quantil** der Nachfrage: eine Menge, die an einem festen Anteil der Fälle ausreicht, und dieser Anteil ergibt sich aus dem Verhältnis der beiden Kosten. Wie genau die Prognose ist und wie gut die Bestellung ist, sind zwei verschiedene Fragen. Alles gilt für erfundene Nachfrage mit festen Annahmen, nicht für echte Lager.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/beste-prognose-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
 
 with st.expander("So funktioniert Regret statt Fehler", expanded=True):
     st.markdown(
@@ -198,7 +211,7 @@ st.markdown(
 | **Eine Welt:** Normalrauschen, Stutzung bei 0, lineares Modell, konstante Streuung | Die Zahlen gelten für diese Welt; Messung mit Echtdaten fehlt. In der Vormessung (Welt „Streuung linear“, p = 3, n = 1000, τ = 0,95) kostet KQ plus Normalquantil 33,7 % mehr (eine Streuungsform, eine Messung); die Regel setzt konstante Streuung voraus. | direktes Lernen der Menge auf den Kosten (Quantilregression) |
 | **Das Modell ist richtig spezifiziert** | Hier gibt es keine Fehlspezifikation; ob „KQ plus Quantil“ bei falscher Modellklasse mithält, zeigt diese Demo nicht. | Vergleich zweistufig gegen integriert bei falscher Modellklasse |
 | **Wenig Daten, viele Merkmale** | Auch die Quantilregel verliert: bei p = 10, n = 30, τ = 0,95 im Median mehr als 30 % Mehrkosten (Experiment 2). | regularisierte Quantilregression |
-| **Eine Menge je Merkmalszeile, ohne Kopplung** | Bei einem Löser mit Nebenbedingungen (Weg im Netz) ist die beste Entscheidung das Ergebnis eines Optimierungsproblems; die Quantilformel dieser Demo trägt dort nicht. | Entscheidungen mit Löser, etwa der kürzeste Weg im Netz |
+| **Eine Menge je Merkmalszeile, ohne Kopplung** | Bei einem Löser mit Nebenbedingungen (Weg im Netz) ist die beste Entscheidung das Ergebnis eines Optimierungsproblems; die Quantilformel dieser Demo reicht dort nicht. | Entscheidungen mit Löser, etwa der kürzeste Weg im Netz |
 | **Bekannte Verteilung gegen geschätzte** | `newsvendor-evpi-demo` kennt die Verteilung und fragt nach dem Wert der Information; hier ist sie unbekannt und wird aus Daten geschätzt. | – |
 """
 )
@@ -211,6 +224,7 @@ st.markdown(
 st.markdown("---")
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/beste-prognose-erklaert.json, nicht von Hand ändern)
     st.markdown(
         r"""
 **Lesehilfe.** Gegeben sind Merkmale $x$, Daten $(x_i, D_i)$ und Kosten $b$, $h$; gesucht ist eine Bestellmenge $q(x)$ mit kleinem Regret.
@@ -220,12 +234,23 @@ with st.expander("📐 Mathematische Formulierung"):
 | $D$ | Nachfrage (nicht negativ) |
 | $q$ | Bestellmenge |
 | $b$, $h$ | Kosten je fehlende bzw. überschüssige Einheit |
+| $(u)^+$ | der positive Teil von $u$, also $\max(u, 0)$ |
 | $\tau$ | kritisches Verhältnis $b/(b+h)$ |
+| $F_{D \mid x}$ | Verteilungsfunktion der Nachfrage bei den Merkmalen $x$ |
 | $z_\tau$ | $\tau$-Quantil der Standardnormalverteilung |
+| $\varphi$, $\Phi$ | Dichte und Verteilungsfunktion der Standardnormalverteilung |
 | $\hat y(x)$ | Prognose (Kleinste Quadrate) |
 | $\hat\sigma$ | gepoolte Reststreuung |
+| $\mu$, $\sigma$ | Mittel und Streuung der Nachfrage ($Y$ normalverteilt, ohne Stutzung) |
+| $d$ | Menge in Streuungen vom Mittel, $d = (q - \mu)/\sigma$ |
 | $s$ | Verschiebung der Prognose in Einheiten der Reststreuung |
 
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/beste-prognose-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
+    st.markdown(
+        r"""
 **Kosten und beste Menge.**
 
 $$C(q, D) = b\,(D - q)^+ + h\,(q - D)^+, \qquad \tau = \frac{b}{b + h}$$
@@ -270,5 +295,5 @@ st.markdown("---")
 st.caption(
     "Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
     "Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). "
-    "Mehr zu den Demos: [Interaktive Demos](https://sebastianhanisch.net/demos.html)."
+    "Mehr zur Reihe: [Entscheidungsorientiert: Regret bis Wahl](https://sebastianhanisch.net/konzepte-entscheidungsorientiert.html)."
 )
